@@ -54,18 +54,19 @@ levels = [
         "type": "type",
         "description": "A signup form. Try signing up with a short password.",
         "app": "signup2",
+        "bug_element": "signup_btn",
         "bug_text": "The form accepts passwords that are only 1 character long",
         "keywords": ["password", "short", "1", "one", "character", "validation"]
     },
     {
         "id": 7,
         "difficulty": "medium",
-        "type": "click",
+        "type": "type",
         "description": "A progress bar. Something looks wrong.",
         "app": "progress",
         "bug_element": "progress_bar",
         "bug_text": "The progress bar goes backwards",
-        "keywords": ["backwards", "reverse", "wrong direction", "decreasing"]
+        "keywords": ["backwards", "reverse", "wrong", "decreasing"]
     },
     {
         "id": 8,

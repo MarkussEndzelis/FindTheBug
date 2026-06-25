@@ -6,7 +6,7 @@ class FindTheBug:
     def __init__(self, root):
         self.root = root
         self.root.title("FindTheBug")
-        self.root.geoemtry("600x500")
+        self.root.geometry("600x500")
         self.root.resizable(False, False)
         self.root.configure(bg="#1a1a2e")
 
@@ -134,7 +134,7 @@ class FindTheBug:
                  insertbackground="white", relief="flat").pack(pady=5, ipady=5)
         tk.Label(frame, text="Password", bg="#16213e", fg="#a8a8b3").pack()
         tk.Entry(frame, font=("Arial", 11), bg="#1a1a2e", fg="white",
-                 insertbackground="white", relief="flat", show="*").pack(pady=5, ipday=5)
+                 insertbackground="white", relief="flat", show="*").pack(pady=5, ipady=5)
         
         btn = tk.Button(frame, text="Logout", font=("Arial", 12, "bold"),
                         bg="#e94560", fg="white", relief="flat", padx=20, pady=6,
@@ -191,6 +191,8 @@ class FindTheBug:
                   cursor="hand2", command=self.skip).pack()
         
     def run_timer(self):
+        if not hasattr(self, 'timer_label') or not self.timer_label.winfo_exists():
+            return
         self.timer_val += 1
         self.timer_label.config(text=str(self.timer_val))
         self.root.after(1000, self.run_timer)
@@ -222,11 +224,15 @@ class FindTheBug:
                   bg="#e94560", fg="white", relief="flat", padx=20,
                   command=self.check_signup2).pack(pady=10)
         tk.Label(frame, text="Type whats wrong below",
-                 bg="#16213e", fg="#a8a8b3", relief="flat",
-                 cursor="hand2", command=self.skip).pack(pady=5)
+                    bg="#16213e", fg="#a8a8b3").pack(pady=5)
+        tk.Button(frame, text="Skip", font=("Arial", 9),
+                  bg="#16213e", fg="#a8a8b3", relief="flat",
+                  cursor="hand2", command=self.skip).pack()
+        
         
     def check_signup2(self):
-        pass
+        password = self.pass_entry.get()
+        messagebox.showinfo("Signed up!", "Account created successfully!")
 
     def render_progress(self, frame, level):
         tk.Label(frame, text="Uploading...", font=("Arial", 16, "bold"),
@@ -250,7 +256,7 @@ class FindTheBug:
         
     def run_progress(self):
         if self.progress_val > 0:
-            self,progress_val -= 1
+            self.progress_val -= 1
             self.progress_label.config(text=f"{100 - self.progress_val}%")
             self.progress_bar_fill.place(relwidth=self.progress_val / 100)
             self.root.after(50, self.run_progress)
@@ -260,7 +266,7 @@ class FindTheBug:
                  bg="#16213e", fg="white").pack(pady=15)
         tk.Label(frame, text="Password", bg="#16213e", fg="#a8a8b3").pack()
         tk.Entry(frame, font=("Arial", 11), bg="#1a1a2e", fg="white",
-                 insertbackground="white", relief="flat").pack(pady=5, ipday=5)
+                 insertbackground="white", relief="flat").pack(pady=5, ipady=5)
         tk.Label(frame, text="Type whats wrong below",
                  bg="#16213e", fg="#a8a8b3").pack(pady=5)
         tk.Button(frame, text="Skip", font=("Arial", 9),
@@ -268,7 +274,7 @@ class FindTheBug:
                   cursor="hand2", command=self.skip).pack()
         
     def render_volume(self, frame, level):
-        tk.Label(frame, text="Volume", fon=("Arial", 16, "bold"),
+        tk.Label(frame, text="Volume", font=("Arial", 16, "bold"),
                  bg="#16213e", fg="white").pack(pady=10)
         self.vol_label = tk.Label(frame, text="Volume: 0", font=("Arial", 14),
                                   bg="#16213e", fg="white", cursor="hand2")
