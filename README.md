@@ -22,5 +22,5 @@ FindTheBug is a windows desktop game made with python where you have to find the
 If Windows SmartScreen blocks it then click "More info" and then "Run anyway"
 
 ## Tech stack
-Python
-Tkinter
+- Python
+- Tkinter
