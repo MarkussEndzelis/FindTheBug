@@ -13,10 +13,10 @@ levels = [
         "id": 2,
         "difficulty": "easy",
         "type": "type",
-        "description": "A calculator. Try adding some numbers.",
+        "description": "A calculator. Something gives the wrong answer.",
         "app": "calculator",
-        "bug_text": "The calculator shows 2+2=5",
-        "keywords": ["wrong", "answer", "result", "five", "5", "math"]
+        "bug_text": "If you do 7 * 8 then it gives the wrong asnwer",
+        "keywords": ["wrong", "54", "7", "8", "multiply", "times", "incorrect", "answer", "result", "five", "5", "math"]
     },
     {
         "id": 3,

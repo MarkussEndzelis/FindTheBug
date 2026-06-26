@@ -148,15 +148,39 @@ class FindTheBug:
         
     
     def render_calculator(self, frame, level):
-        tk.Label(frame, text="Calculator", font=("Arial", 16, "bold"),
-                 bg="#16213e", fg="white").pack(pady=10)
-        tk.Label(frame, text="2 + 2 = 5", font=("Arial", 28, "bold"),
-                 bg="#16213e", fg="#e94560").pack(pady=20)
-        tk.Label(frame, text="Type whats wrong below",
-                 bg="#16213e", fg="#a8a8b3").pack(pady=5)
+        tk.Label(frame, text="Calculator", font=("Arial", 14, "bold"),
+                 bg="#16213e", fg="white").pack(pady=8)
+        
+        self.calc_display = tk.Entry(frame, font=("Arial", 20), bg="#1a1a2e",
+                                     fg="white", insertbackground="white",
+                                     relief="flat", justify="right", width=16)
+        self.calc_display.pack(padx=20, pady=5, ipady=8)
+        self.calc_display.insert(0, "0")
+
+        self.calc_expr = ""
+
+        btn_frame = tk.Frame(frame, bg="#16213e")
+        btn_frame.pack(pady=5)
+
+        buttons = [
+            ["7", "8", "9", "/"],
+            ["4", "5", "6", "*"],
+            ["1", "2", "3", "-"],
+            ["0", "C", "=", "+"],
+        ]
+
+        for row in buttons:
+            r = tk.Frame(btn_frame, bg="#16213e")
+            r.pack()
+            for b in row:
+                tk.Button(r, text=b, font=("Arial", 12, "bold"), width=4, pady=6,
+                          bg="#1a1a2e", fg="white", relief="flat", cursor="hand2",
+                          command=lambda x=b: self.calc_press(x)).pack(side="left", padx=2, pady=2)
+                
+        tk.Label(frame, text="Type whats wrong below", bg="#16213e", fg="#a8a8b3").pack(pady=5)
         tk.Button(frame, text="Skip", font=("Arial", 9),
                   bg="#16213e", fg="#a8a8b3", relief="flat",
-                  cursor="hand2", command=self.skip).pack(pady=10)
+                  cursor="hand2", command=self.skip).pack()
         
     def render_signup(self, frame, level):
         tk.Label(frame, text="Shop", font=("Arial", 16, "bold"),
@@ -326,6 +350,30 @@ class FindTheBug:
             self.correct()
         else:
             self.wrong()
+
+    def calc_press(self, key):
+        if key == "C":
+            self.calc_expr = ""
+            self.calc_display.delete(0, "end")
+            self.calc_display.insert(0, "0")
+        elif key == "=":
+            try:
+                result = eval(self.calc_expr)
+                if self.calc_expr == "7*8" or self.calc_expr == "8*7":
+                    result = 54
+                self.calc_display.delete(0, "end")
+                self.calc_display.insert(0, str(result))
+                self.calc_expr = str(result)
+            except:
+                self.calc_display.delete(0, "end")
+                self.calc_display.insert(0, "Error")
+                self.calc_expr = ""
+        else:
+            if self.calc_expr == "" and self.calc_display.get() == "0":
+                self.calc_display.delete(0, "end")
+            self.calc_expr += key
+            self.calc_display.delete(0, "end")
+            self.calc_display.insert(0, self.calc_expr)
 
     def show_result_screen(self):
         self.clear()
